@@ -14,8 +14,8 @@ view: work_items {
             from etl.date_dimension d
             left join  sql_server_karbon.workpercentagecomplete a
             on  d.dt = date_trunc('day' ,start_date)::date
-            where d.dt < current_date
             and a.tenant_perma_key = '289VCbp3cJ6j'
+            where d.dt < current_date
             group by d.dt
             order by  d.dt desc
           ) s
@@ -26,9 +26,9 @@ view: work_items {
             from etl.date_dimension d
             left join  sql_server_karbon.workpercentagecomplete a
             on  d.dt = date_trunc('day' ,completed_date)::date
+            and a.tenant_perma_key = '289VCbp3cJ6j'
             where d.dt < current_date
             and primary_status = 'Completed'
-            and a.tenant_perma_key = '289VCbp3cJ6j'
             group by d.dt
             order by  d.dt desc
           ) c
