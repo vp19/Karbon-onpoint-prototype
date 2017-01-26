@@ -3,6 +3,7 @@ view: workpercentagecomplete {
 
   dimension: id {
     primary_key: yes
+    hidden: yes
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -103,6 +104,7 @@ view: workpercentagecomplete {
 
   dimension: work_perma_key {
     type: string
+    hidden: yes
     sql: ${TABLE}.work_perma_key ;;
   }
 
@@ -111,8 +113,27 @@ view: workpercentagecomplete {
     sql: ${TABLE}.work_title ;;
   }
 
+  measure: completed_count_measure {
+    label: "Completed Work Items"
+    type: sum
+    sql: ${completed_count} ;;
+  }
+
+  measure: work_item_count_measure {
+    label: "Total Work Items"
+    type: sum
+    sql: ${work_item_count} ;;
+  }
+
+  measure: percentage_completed_measure {
+    label: "Percentage Completed"
+    value_format_name: percent_2
+    type: sum
+    sql: ${percentage_completed} ;;
+  }
+
   measure: count {
     type: count
-    drill_fields: [id, org_name, tenant_name, contact_name]
+    drill_fields: [org_name, work_title,primary_status,start_date,due_date,completed_date]
   }
 }
